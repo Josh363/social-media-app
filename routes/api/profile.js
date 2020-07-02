@@ -1,4 +1,6 @@
 const express = require('express')
+const request = require('request')
+const config = require('config')
 const router = express.Router()
 const auth = require('../../middleware/auth')
 const { body, validationResult } = require('express-validator')
@@ -201,9 +203,9 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ user: req.user.id })
-      //push each experience to the top
-      profile.experience.unshift(newExp)
-      //save experience to profile
+      //add newEdu to profile
+      profile.experience = [...profile.experience, newExp]
+      //save new profile to database
       await profile.save()
       //return whole profile to client
       res.json(profile)
@@ -220,14 +222,11 @@ router.put(
 router.delete('/experience/:exp_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id })
-    //Get remove index
-    const removeIndex = profile.experience
-      //map through and return experience ids
-      .map((item) => item.id)
-      //match the index of the experience id with the :exp_id sent by the client
-      .indexOf(req.params.exp_id)
-    //delete experience object at the removeIndex
-    profile.experience.splice(removeIndex, 1)
+    //filter out deleted experience through params from client
+    profile.experience = profile.experience.filter(
+      (exp) => exp.id.toString() !== req.params.exp_id
+    )
+    //save new profile
     await profile.save()
     res.json(profile)
   } catch (err) {
@@ -279,9 +278,9 @@ router.put(
 
     try {
       const profile = await Profile.findOne({ user: req.user.id })
-      //push each experience to the top
-      profile.education.unshift(newEdu)
-      //save experience to profile
+      //add new edu to profile
+      profile.education = [...profile.education, newEdu]
+      //save profile to database
       await profile.save()
       //return whole profile to client
       res.json(profile)
@@ -298,19 +297,46 @@ router.put(
 router.delete('/education/:edu_id', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id })
-    //Get remove index
-    const removeIndex = profile.education
-      //map through and return education ids
-      .map((item) => item.id)
-      //match the index of the education id with the :exp_id sent by the client
-      .indexOf(req.params.edu_id)
-    //delete education object at the removeIndex
-    profile.education.splice(removeIndex, 1)
+    //filter out deleted education through params from client
+    profile.education = profile.education.filter(
+      (edu) => edu.id.toString() !== req.params.edu_id
+    )
+    //save new profile
     await profile.save()
     res.json(profile)
   } catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error')
+  }
+})
+
+//@route GET api/profile/github/:username
+//@desc Get user repos from Github
+//@access Public
+router.get('/github/:username', (req, res) => {
+  try {
+    const options = {
+      uri: `https://api.github.com/users/${
+        req.params.username
+      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
+        'githubClientId'
+      )}&client_secret=${config.get('githubSecret')}`,
+      method: 'GET',
+      headers: { 'user-agent': 'node.js' },
+    }
+
+    request(options, (error, response, body) => {
+      if (error) {
+        console.error(error)
+      }
+      if (response.statusCode !== 200) {
+        res.status(404).json({ msg: 'No Github profile found' })
+      }
+      res.json(JSON.parse(body))
+    })
+  } catch (err) {
+    console.error(err.message)
+    return res.status(500).send('Server Error')
   }
 })
 
