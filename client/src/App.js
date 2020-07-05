@@ -5,6 +5,8 @@ import Land from './components/layouts/Land'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 import Alert from './components/layouts/Alert'
+import Dashboard from './components/dashboard/Dashboard'
+import PrivateRoute from './components/routing/PrivateRoute'
 import './App.css'
 //Redux
 import { Provider } from 'react-redux'
@@ -29,11 +31,10 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path='/' component={Land} />
-            <section className='container'>
-              <Alert />
-              <Route exact path='/register' component={Register} />
-              <Route exact path='/login' component={Login} />
-            </section>
+            <Alert />
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
           </Switch>
         </Fragment>
       </Router>
