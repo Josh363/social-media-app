@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
   const { email, password } = formData
 
   return (
-    <section className='container'>
+    <Fragment>
       <h1 className='large text-primary'>Sign In</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Sign Into Your Account
@@ -50,7 +50,7 @@ const Login = () => {
       <p className='my-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
-    </section>
+    </Fragment>
   )
 }
 
