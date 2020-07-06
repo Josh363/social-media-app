@@ -7,6 +7,7 @@ import Login from './components/auth/Login'
 import Alert from './components/layouts/Alert'
 import Dashboard from './components/dashboard/Dashboard'
 import PrivateRoute from './components/routing/PrivateRoute'
+import CreateProfile from './components/profile-forms/CreateProfile'
 import './App.css'
 //Redux
 import { Provider } from 'react-redux'
@@ -22,6 +23,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser())
+    //eslint-disable-next-line
   }, [])
 
   return (
@@ -31,10 +33,17 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path='/' component={Land} />
-            <Alert />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={Login} />
-            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <section className='container'>
+              <Alert />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+              <PrivateRoute exact path='/dashboard' component={Dashboard} />
+              <PrivateRoute
+                exact
+                path='/create-profile'
+                component={CreateProfile}
+              />
+            </section>
           </Switch>
         </Fragment>
       </Router>
