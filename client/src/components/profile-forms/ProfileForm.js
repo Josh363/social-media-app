@@ -1,26 +1,60 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { createProfile } from '../../actions/profile'
+import { createProfile, getCurrentProfile } from '../../actions/profile'
 
-const CreateProfile = ({ createProfile, history }) => {
-  const [formData, setFormData] = useState({
-    company: '',
-    website: '',
-    location: '',
-    status: '',
-    skills: '',
-    githubusername: '',
-    bio: '',
-    twitter: '',
-    facebook: '',
-    linkedin: '',
-    youtube: '',
-    instagram: '',
-  })
+const initialState = {
+  company: '',
+  website: '',
+  location: '',
+  status: '',
+  skills: '',
+  githubusername: '',
+  bio: '',
+  twitter: '',
+  facebook: '',
+  linkedin: '',
+  youtube: '',
+  instagram: '',
+}
+
+const ProfileForm = ({
+  createProfile,
+  profile: { profile, loading },
+  getCurrentProfile,
+  history,
+}) => {
+  const [formData, setFormData] = useState(initialState)
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false)
+
+  useEffect(() => {
+    if (!profile) getCurrentProfile()
+    if (!loading && profile) {
+      let profileData = { ...initialState }
+      //compare profile properties with formData
+      //if they exist, copy profile data into formData
+      for (const key in profile) {
+        if (key in profileData) {
+          profileData[key] = profile[key]
+        }
+      }
+      //same as above but with the profile.social object
+      for (const key in profile.social) {
+        if (key in profileData) {
+          profileData[key] = profile.social[key]
+        }
+      }
+      //check and format skills
+      if (profile.skills) {
+        profileData.skills = profile.skills.join(',')
+      }
+      //set formdata to profile data from backend
+      setFormData(profileData)
+    }
+    //only load when these change
+  }, [loading, getCurrentProfile, profile])
 
   const {
     company,
@@ -43,12 +77,23 @@ const CreateProfile = ({ createProfile, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    createProfile(formData, history)
+    if (profile) {
+      createProfile(formData, history, true)
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth',
+      })
+    } else {
+      createProfile(formData, history)
+    }
   }
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Create Your Profile</h1>
+      <h1 className='large text-primary'>
+        {profile ? 'Edit Your Profile' : 'Create Your Profile'}
+      </h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Let's get some information to make your
         profile stand out
@@ -211,16 +256,24 @@ const CreateProfile = ({ createProfile, history }) => {
           </Fragment>
         )}
         <input type='submit' className='btn btn-primary my-1' />
-        <a className='btn btn-light my-1' href='dashboard.html'>
+        <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
-        </a>
+        </Link>
       </form>
     </Fragment>
   )
 }
 
-CreateProfile.propTypes = {
+ProfileForm.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 }
 
-export default connect(null, { createProfile })(withRouter(CreateProfile))
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+})
+
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  withRouter(ProfileForm)
+)
