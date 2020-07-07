@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layouts/Spinner'
+import ProfileTop from './ProfileTop'
+import ProfileAbout from './ProfileAbout'
+import ProfileExperience from './ProfileExperience'
 import { getProfileById } from '../../actions/profile'
 
 const Profile = ({
@@ -31,6 +34,22 @@ const Profile = ({
                 Edit Profile
               </Link>
             )}
+          <div className='profile-grid my-1'>
+            <ProfileTop profile={profile} />
+            <ProfileAbout profile={profile} />
+            <div className='profile-exp bg-white p-2'>
+              <h2 className='text-primary'>Experience</h2>
+              {profile.experience.length > 0 ? (
+                <Fragment>
+                  {profile.experience.map((exp) => (
+                    <ProfileExperience key={exp._id} experience={exp} />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No Experience Credentials</h4>
+              )}
+            </div>
+          </div>
         </Fragment>
       )}
     </Fragment>
