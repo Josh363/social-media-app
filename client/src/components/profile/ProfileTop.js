@@ -42,12 +42,12 @@ const ProfileTop = ({
         )}
         {social && social.instagram && (
           <a href={social.instagram} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-twitter fa-2x'></i>
+            <i className='fab fa-instagram fa-2x'></i>
           </a>
         )}
         {social && social.twitter && (
           <a href={social.twitter} target='_blank' rel='noopener noreferrer'>
-            <i className='fab fa-facebook fa-2x'></i>
+            <i className='fab fa-twitter fa-2x'></i>
           </a>
         )}
       </div>
