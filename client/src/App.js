@@ -14,8 +14,9 @@ import Profiles from './components/profiles/Profiles'
 import Profile from './components/profile/Profile'
 import Posts from './components/posts/Posts'
 import Post from './components/post/Post'
-
 //styles
+import 'materialize-css/dist/css/materialize.min.css'
+import M from 'materialize-css/dist/js/materialize.min.js'
 import './App.css'
 //Redux
 import { Provider } from 'react-redux'
@@ -31,6 +32,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser())
+    M.AutoInit()
     //eslint-disable-next-line
   }, [])
 
