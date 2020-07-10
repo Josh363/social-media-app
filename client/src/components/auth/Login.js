@@ -36,17 +36,18 @@ const Login = ({ login, isAuthenticated }) => {
         <i className='material-icons left'>person</i>Sign Into Your Account
       </p>
       <form className='form' onSubmit={onSubmit}>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='email'
             placeholder='Email Address'
             name='email'
             value={email}
             onChange={onChange}
+            className='validate'
             required
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='password'
             placeholder='Password'
@@ -54,6 +55,7 @@ const Login = ({ login, isAuthenticated }) => {
             value={password}
             onChange={onChange}
             minLength='6'
+            className='validate'
             required
           />
         </div>

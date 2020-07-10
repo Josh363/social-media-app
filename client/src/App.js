@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Navbar from './components/layouts/Navbar'
-import Footer from './components/layouts/Footer'
 import Land from './components/layouts/Land'
 import Register from './components/auth/Register'
 import Login from './components/auth/Login'
@@ -43,6 +42,7 @@ const App = () => {
         <Fragment>
           <Navbar />
           <div className='container'>
+            <Alert />
             <Switch>
               <Route exact path='/' component={Land} />
               <Route exact path='/register' component={Register} />
@@ -74,8 +74,6 @@ const App = () => {
               <PrivateRoute exact path='/posts/:id' component={Post} />
             </Switch>
           </div>
-          <div className='footer-line'></div>
-          <Footer />
         </Fragment>
       </Router>
     </Provider>

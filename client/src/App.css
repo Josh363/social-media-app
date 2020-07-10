@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 /* Global Styles */
+:root {
+  --primary-color: #2196f3;
+  --secondary-color: #ff9800;
+  --light-color: #f4f4f4;
+  --danger-color: #ff5252;
+  --success-color: #4caf50;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -31,6 +39,19 @@ body {
   color: black;
 }
 
+/* Materialize CSS input form colors */
+
+/* label underline focus color */
+.input-field input[type='text']:focus {
+  border-bottom: 1px solid #2196f3 !important;
+  box-shadow: 0 1px 0 0 #2196f3 !important;
+}
+
+.input-field textarea:focus {
+  border-bottom: 1px solid #2196f3 !important;
+  box-shadow: 0 1px 0 0 #2196f3 !important;
+}
+
 /* Navbar */
 
 /* Landing */
@@ -40,19 +61,6 @@ body {
 
 .land-btn {
   margin: 40px 20px 20px 10px;
-}
-
-/* Footer */
-.footer-line {
-  border-top: double;
-}
-
-.ft-icon {
-  margin: 20px;
-}
-
-.footer-text {
-  margin-top: 20px;
 }
 
 /* Posts */
@@ -73,4 +81,36 @@ body {
 
 .skills {
   margin-top: 2em;
+}
+
+.skills-container {
+  margin-bottom: 1em;
+}
+
+.info-container {
+  margin-bottom: 1em;
+}
+
+/* Profile-form */
+.input-field .social {
+  color: #2196f3;
+}
+
+/* Alerts */
+.alert-danger {
+  background: var(--danger-color) !important;
+  color: #fff !important;
+}
+
+.alert-success {
+  background: var(--success-color);
+  color: #fff;
+}
+
+.alert {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: var(--light-color);
+  color: #333;
 }

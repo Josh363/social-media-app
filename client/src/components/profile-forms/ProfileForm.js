@@ -91,7 +91,7 @@ const ProfileForm = ({
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>
+      <h1 className='large'>
         {profile ? 'Edit Your Profile' : 'Create Your Profile'}
       </h1>
       <p className='lead'>
@@ -100,7 +100,7 @@ const ProfileForm = ({
       </p>
       <small>* = required field</small>
       <form onSubmit={onSubmit} className='form'>
-        <div className='form-group'>
+        <div className='input-field'>
           <select name='status' value={status} onChange={onChange}>
             <option value='0'>* Select Professional Status</option>
             <option value='Developer'>Developer</option>
@@ -112,11 +112,9 @@ const ProfileForm = ({
             <option value='Intern'>Intern</option>
             <option value='Other'>Other</option>
           </select>
-          <small className='form-text'>
-            Give us an idea of where you are at in your career
-          </small>
+          <small>Give us an idea of where you are at in your career</small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='Company'
@@ -124,11 +122,9 @@ const ProfileForm = ({
             value={company}
             onChange={onChange}
           />
-          <small className='form-text'>
-            Could be your own company or one you work for
-          </small>
+          <small>Could be your own company or one you work for</small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='Website'
@@ -136,11 +132,9 @@ const ProfileForm = ({
             value={website}
             onChange={onChange}
           />
-          <small className='form-text'>
-            Could be your own or a company website
-          </small>
+          <small>Could be your own or a company website</small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='Location'
@@ -148,11 +142,9 @@ const ProfileForm = ({
             value={location}
             onChange={onChange}
           />
-          <small className='form-text'>
-            City & state suggested (eg. Boston, MA)
-          </small>
+          <small>City & state suggested (eg. Boston, MA)</small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='* Skills'
@@ -160,11 +152,11 @@ const ProfileForm = ({
             value={skills}
             onChange={onChange}
           />
-          <small className='form-text'>
+          <small>
             Please use comma separated values (eg. HTML,CSS,JavaScript,PHP)
           </small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='Github Username'
@@ -172,35 +164,37 @@ const ProfileForm = ({
             value={githubusername}
             onChange={onChange}
           />
-          <small className='form-text'>
+          <small>
             If you want your latest repos and a Github link, include your
             username
           </small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <textarea
             placeholder='A short bio of yourself'
             name='bio'
             value={bio}
             onChange={onChange}
+            className='materialize-textarea'
           ></textarea>
-          <small className='form-text'>Tell us a little about yourself</small>
+          <small>Tell us a little about yourself</small>
         </div>
 
-        <div className='my-2'>
+        <div className='m-1'>
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type='button'
-            className='btn blue'
+            className='btn orange'
           >
             Add Social Network Links
           </button>
           <span>Optional</span>
         </div>
+        <hr />
         {displaySocialInputs && (
           <Fragment>
-            <div className='form-group social-input'>
-              <i className='fab fa-twitter fa-2x'></i>
+            <div className='input-field'>
+              <i className='social fab fa-twitter fa-2x'></i>
               <input
                 type='text'
                 placeholder='Twitter URL'
@@ -210,8 +204,8 @@ const ProfileForm = ({
               />
             </div>
 
-            <div className='form-group social-input'>
-              <i className='fab fa-facebook fa-2x'></i>
+            <div className='input-field'>
+              <i className='social fab fa-facebook fa-2x'></i>
               <input
                 type='text'
                 placeholder='Facebook URL'
@@ -221,8 +215,8 @@ const ProfileForm = ({
               />
             </div>
 
-            <div className='form-group social-input'>
-              <i className='fab fa-youtube fa-2x'></i>
+            <div className='input-field'>
+              <i className='social fab fa-youtube fa-2x'></i>
               <input
                 type='text'
                 placeholder='YouTube URL'
@@ -232,8 +226,8 @@ const ProfileForm = ({
               />
             </div>
 
-            <div className='form-group social-input'>
-              <i className='fab fa-linkedin fa-2x'></i>
+            <div className='input-field'>
+              <i className='social fab fa-linkedin fa-2x'></i>
               <input
                 type='text'
                 placeholder='Linkedin URL'
@@ -243,8 +237,8 @@ const ProfileForm = ({
               />
             </div>
 
-            <div className='form-group social-input'>
-              <i className='fab fa-instagram fa-2x'></i>
+            <div className='input-field'>
+              <i className='social fab fa-instagram fa-2x'></i>
               <input
                 type='text'
                 placeholder='Instagram URL'
@@ -256,7 +250,7 @@ const ProfileForm = ({
           </Fragment>
         )}
         <input type='submit' className='btn blue m-1' />
-        <Link className='btn blue m-1' to='/dashboard'>
+        <Link className='right btn orange m-1' to='/dashboard'>
           Go Back
         </Link>
       </form>
