@@ -30,10 +30,10 @@ const Login = ({ login, isAuthenticated }) => {
   }
 
   return (
-    <Fragment>
-      <h1 className='large text-primary'>Sign In</h1>
-      <p className='lead'>
-        <i className='fas fa-user'></i> Sign Into Your Account
+    <div className='row'>
+      <h1 className='large'>Sign In</h1>
+      <p>
+        <i className='material-icons left'>person</i>Sign Into Your Account
       </p>
       <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
@@ -57,12 +57,14 @@ const Login = ({ login, isAuthenticated }) => {
             required
           />
         </div>
-        <input type='submit' className='btn btn-primary' value='Login' />
+        <button class='btn waves-effect waves-light blue' type='submit'>
+          Submit
+        </button>
       </form>
-      <p className='my-1'>
+      <p>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
-    </Fragment>
+    </div>
   )
 }
 

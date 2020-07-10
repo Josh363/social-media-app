@@ -12,27 +12,34 @@ const ProfileItem = ({
   },
 }) => {
   return (
-    <div className='profile bg-light'>
-      <img src={avatar} alt='profile' className='round-img' />
-      <div>
-        <h2>{name}</h2>
+    <div className='profile col s12 card-panel m-1'>
+      <div className='prof-img-container col s12 m2'>
+        <img src={avatar} alt='profile' className='profile-img circle' />
+      </div>
+      <div className='info-container col s12 m6'>
+        <h2 className='lead'>{name}</h2>
         <p>
           {status} {company && <span>at {company}</span>}
         </p>
-        <p className='my-1'>{location && <span>{location}</span>}</p>
-        <Link className='btn btn-primary' to={`/profile/${_id}`}>
+        <p className='m-1'>{location && <span>{location}</span>}</p>
+        <Link className='btn blue' to={`/profile/${_id}`}>
           View Profile
         </Link>
       </div>
-      <ul>
-        {skills
-          .filter((skill, index) => index < 4)
-          .map((skill, index) => (
-            <li key={index} className='text-primary'>
-              <i className='fas fa-check'></i> {skill}
-            </li>
-          ))}
-      </ul>
+      <div className='skills-container col s12 m4'>
+        <ul className='skills'>
+          {skills
+            .filter((skill, index) => index < 4)
+            .map((skill, index) => (
+              <li className='col s4 m12' key={index}>
+                <hr />
+
+                <i className='material-icons left'>assignment_turned_in</i>
+                {skill}
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   )
 }

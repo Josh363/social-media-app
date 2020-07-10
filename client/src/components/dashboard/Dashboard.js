@@ -23,7 +23,7 @@ const Dashboard = ({
     <Spinner />
   ) : (
     <Fragment>
-      <h1 className='large text-primary'>Dashboard</h1>
+      <h1 className='large'>Dashboard</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Welcome {user && user.name}
       </p>
@@ -32,8 +32,11 @@ const Dashboard = ({
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
-          <div className='my-2'>
-            <button className='btn btn-danger' onClick={() => deleteAccount()}>
+          <div className='m-1'>
+            <button
+              className='btn red accent-2'
+              onClick={() => deleteAccount()}
+            >
               <i className='fas fa-user-minus'></i> Delete My Account
             </button>
           </div>
@@ -41,7 +44,7 @@ const Dashboard = ({
       ) : (
         <Fragment>
           <p>You have not yet setup a profile, please add some info</p>
-          <Link to='/create-profile' className='btn btn-primary my-1'>
+          <Link to='/create-profile' className='btn blue m-1'>
             Create Profile
           </Link>
         </Fragment>

@@ -10,8 +10,8 @@ const AddEducation = ({ addEducation, history }) => {
     degree: '',
     fieldofstudy: '',
     from: '',
-    to: '',
     current: false,
+    to: '',
     description: '',
   })
 
@@ -20,10 +20,10 @@ const AddEducation = ({ addEducation, history }) => {
   const {
     school,
     degree,
+    current,
     fieldofstudy,
     from,
     to,
-    current,
     description,
   } = formData
 
@@ -79,20 +79,20 @@ const AddEducation = ({ addEducation, history }) => {
         </div>
         <div className='form-group'>
           <p>
-            <input
-              type='checkbox'
-              name='current'
-              checked={current}
-              value={current}
-              onChange={(e) => {
-                setFormData({
-                  ...formData,
-                  current: !current,
-                })
-                toggleDisabled(!toDateDisabled)
-              }}
-            />{' '}
-            Current School
+            <label>
+              <input
+                type='checkbox'
+                name='current'
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    current: !current,
+                  })
+                  toggleDisabled(!toDateDisabled)
+                }}
+              />
+              <span>Current School</span>
+            </label>
           </p>
         </div>
         <div className='form-group'>
@@ -115,8 +115,8 @@ const AddEducation = ({ addEducation, history }) => {
             onChange={onChange}
           ></textarea>
         </div>
-        <input type='submit' className='btn btn-primary my-1' />
-        <Link className='btn btn-light my-1' to='dashboard'>
+        <input type='submit' className='btn blue m-1' />
+        <Link className='btn blue m-1' to='dashboard'>
           Go Back
         </Link>
       </form>

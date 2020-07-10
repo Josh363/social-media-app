@@ -13,21 +13,22 @@ const PostForm = ({ addPost }) => {
   }
 
   return (
-    <div className='post-form'>
-      <div className='bg-primary p'>
-        <h3>Create a Post</h3>
-      </div>
-      <form onSubmit={onSubmit} className='form my-1'>
-        <textarea
-          name='text'
-          cols='30'
-          rows='5'
-          placeholder='Comment on this post'
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          required
-        ></textarea>
-        <input type='submit' className='btn btn-dark my-1' value='Submit' />
+    <div>
+      <h3>Create a Post</h3>
+      <form className='row' onSubmit={onSubmit}>
+        <div className='input-field col s12'>
+          <textarea
+            className='materialize-textarea'
+            name='text'
+            cols='30'
+            rows='5'
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            required
+          ></textarea>
+          <label for='textarea1'>Post Your Thoughts Here</label>
+          <input type='submit' className='btn blue' value='Submit' />
+        </div>
       </form>
     </div>
   )

@@ -191,7 +191,7 @@ const ProfileForm = ({
           <button
             onClick={() => toggleSocialInputs(!displaySocialInputs)}
             type='button'
-            className='btn btn-light'
+            className='btn blue'
           >
             Add Social Network Links
           </button>
@@ -255,8 +255,8 @@ const ProfileForm = ({
             </div>
           </Fragment>
         )}
-        <input type='submit' className='btn btn-primary my-1' />
-        <Link className='btn btn-light my-1' to='/dashboard'>
+        <input type='submit' className='btn blue m-1' />
+        <Link className='btn blue m-1' to='/dashboard'>
           Go Back
         </Link>
       </form>
