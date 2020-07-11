@@ -181,6 +181,10 @@ body {
   background: var(--light-color);
 }
 
+.dash-buttons {
+  display: flex;
+}
+
 /*!!!! Profile Page !!!!*/
 
 /* Profile Top */

@@ -22,7 +22,7 @@ const Education = ({ education, deleteEducation }) => {
           onClick={() => deleteEducation(edu._id)}
           className='btn red accent-2'
         >
-          Delete
+          X
         </button>
       </td>
     </tr>

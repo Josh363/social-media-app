@@ -9,7 +9,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <ul className='right hide-on-med-and-down'>
       <li>
         <Link to='/profiles'>
-          <i className='material-icons right'>people</i>Developers
+          fixe <i className='material-icons right'>people</i>Profiles
         </Link>
       </li>
       <li>
@@ -19,7 +19,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
       <li>
         <Link to='/questions'>
-          <i className='material-icons right'>question_answer</i>Questions
+          <i className='material-icons right'>question_answer</i>Q&A
         </Link>
       </li>
       <li>
@@ -29,7 +29,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
       </li>
       <li>
         <Link onClick={logout} to='/login'>
-          <i className='material-icons right'>vpn_key</i>Logout
+          <i className='material-icons right'>vpn_key</i>
+          Logout
         </Link>
       </li>
     </ul>
@@ -38,13 +39,19 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <ul className='right hide-on-med-and-down'>
       <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link to='/profiles' className='btn orange'>
+          Developers
+        </Link>
       </li>
       <li>
-        <Link to='/register'>Register</Link>
+        <Link to='/register' className='btn orange'>
+          Register
+        </Link>
       </li>
       <li>
-        <Link to='/login'>Login</Link>
+        <Link to='/login' className='btn orange'>
+          Login
+        </Link>
       </li>
     </ul>
   )
@@ -53,12 +60,12 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <ul className='sidenav' id='mobile-menu'>
       <li>
         <Link className='sidenav-close' to='/profiles'>
-          Developers
+          <i className='material-icons'>people</i>Profiles
         </Link>
       </li>
       <li>
         <Link className='sidenav-close' to='/posts'>
-          Posts
+          <i className='material-icons'>message</i>Posts
         </Link>
       </li>
       <li>
@@ -98,9 +105,15 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <Fragment>
       <div className='navbar-fixed'>
         <nav className='blue'>
-          <div className='nav-wrapper'>
-            <Link className='brand-logo' to='/'>
-              <i className='material-icons'>computer</i> DevSpot
+          <div className='container'></div>
+          <div className='nav-wrapper container'>
+            <Link
+              className='brand-logo tooltipped'
+              to='/'
+              data-position='bottom'
+              data-tooltip='I am a tooltip'
+            >
+              <i className='material-icons'>computer</i> DS
             </Link>
             <a href='#!' data-target='mobile-menu' className='sidenav-trigger'>
               <i className='material-icons'>menu</i>
@@ -128,3 +141,5 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, { logout })(Navbar)
+
+//Finish NabBar Icons, remove buttons, and add education forms

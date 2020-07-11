@@ -22,7 +22,7 @@ const Experience = ({ experience, deleteExperience }) => {
           onClick={() => deleteExperience(exp._id)}
           className='btn red accent-2'
         >
-          Delete
+          X
         </button>
       </td>
     </tr>
