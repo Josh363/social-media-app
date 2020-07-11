@@ -37,14 +37,14 @@ const AddEducation = ({ addEducation, history }) => {
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Add Your Education</h1>
+      <h1 className='large'>Add Your Education</h1>
       <p className='lead'>
         <i className='fas fa-code-branch'></i> Add any school or bootcamp that
         you have attended
       </p>
       <small>* = required field</small>
       <form className='form' onSubmit={onSubmit}>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='* School or Bootcamp'
@@ -54,7 +54,7 @@ const AddEducation = ({ addEducation, history }) => {
             required
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='* Degree or Certificate'
@@ -64,7 +64,7 @@ const AddEducation = ({ addEducation, history }) => {
             required
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='Field of Study'
@@ -73,11 +73,11 @@ const AddEducation = ({ addEducation, history }) => {
             onChange={onChange}
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <h4>From Date</h4>
           <input type='date' name='from' value={from} onChange={onChange} />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <p>
             <label>
               <input
@@ -95,7 +95,7 @@ const AddEducation = ({ addEducation, history }) => {
             </label>
           </p>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <h4>To Date</h4>
           <input
             type='date'
@@ -105,7 +105,7 @@ const AddEducation = ({ addEducation, history }) => {
             disabled={toDateDisabled && 'disabled'}
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <textarea
             name='description'
             cols='30'
@@ -113,10 +113,11 @@ const AddEducation = ({ addEducation, history }) => {
             placeholder='Program Description'
             value={description}
             onChange={onChange}
+            className='materialize-textarea'
           ></textarea>
         </div>
         <input type='submit' className='btn blue m-1' />
-        <Link className='btn blue m-1' to='dashboard'>
+        <Link className='btn orange m-1' to='dashboard'>
           Go Back
         </Link>
       </form>

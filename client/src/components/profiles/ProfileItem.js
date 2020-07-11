@@ -12,11 +12,11 @@ const ProfileItem = ({
   },
 }) => {
   return (
-    <div className='profile col s12 card-panel m-1'>
-      <div className='prof-img-container col s12 m2'>
+    <div className='profile card-panel'>
+      <div className='prof-img-container'>
         <img src={avatar} alt='profile' className='profile-img circle' />
       </div>
-      <div className='info-container col s12 m6'>
+      <div className='info-container'>
         <h2 className='lead'>{name}</h2>
         <p>
           {status} {company && <span>at {company}</span>}
@@ -26,16 +26,14 @@ const ProfileItem = ({
           View Profile
         </Link>
       </div>
-      <div className='skills-container col s12 m4'>
+      <div className='skills-container'>
         <ul className='skills'>
           {skills
             .filter((skill, index) => index < 4)
             .map((skill, index) => (
-              <li className='col s4 m12' key={index}>
+              <li className='skill' key={index}>
                 <hr />
-
-                <i className='material-icons left'>assignment_turned_in</i>
-                {skill}
+                <i className='fas fa-check'></i> {skill}
               </li>
             ))}
         </ul>

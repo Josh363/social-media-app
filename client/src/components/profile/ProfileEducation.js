@@ -7,21 +7,23 @@ const ProfileEducation = ({
 }) => {
   return (
     <div>
-      <h3 className='text-dark'>{school}</h3>
+      <h3 className='lead'>
+        <b>{school}</b>
+      </h3>
       <p>
         <Moment format='YYYY/MM/DD'>{from}</Moment> -{' '}
         {!to ? 'Now' : <Moment format='YYYY/MM/DD'>{to}</Moment>}
       </p>
       <p>
-        <strong>Degree: </strong>
+        <b>Degree: </b>
         {degree}
       </p>
       <p>
-        <strong>Field of Study: </strong>
+        <b>Field of Study: </b>
         {fieldofstudy}
       </p>
       <p>
-        <strong>Description: </strong>
+        <b>Description: </b>
         {description}
       </p>
     </div>

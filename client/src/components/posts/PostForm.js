@@ -27,7 +27,7 @@ const PostForm = ({ addPost }) => {
             required
           ></textarea>
           <label for='textarea1'>Post Your Thoughts Here</label>
-          <input type='submit' className='btn blue' value='Submit' />
+          <input type='submit' className='btn orange' value='Submit' />
         </div>
       </form>
     </div>

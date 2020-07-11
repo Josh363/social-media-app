@@ -48,7 +48,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <i className='fas fa-user'></i> Create Your Account
       </p>
       <form className='form' onSubmit={onSubmit}>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='text'
             placeholder='Name'
@@ -57,7 +57,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             onChange={onChange}
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='email'
             placeholder='Email Address'
@@ -70,7 +70,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             Gravatar email
           </small>
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='password'
             placeholder='Password'
@@ -80,7 +80,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             minLength='6'
           />
         </div>
-        <div className='form-group'>
+        <div className='input-field'>
           <input
             type='password'
             placeholder='Confirm Password'
@@ -90,9 +90,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             minLength='6'
           />
         </div>
-        <input type='submit' className='btn btn-primary' value='Register' />
+        <input type='submit' className='btn blue' value='Register' />
       </form>
-      <p className='my-1'>
+      <p className='m-1'>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
     </Fragment>

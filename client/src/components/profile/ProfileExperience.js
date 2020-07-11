@@ -7,17 +7,17 @@ const ProfileExperience = ({
 }) => {
   return (
     <div>
-      <h3 className='text-dark'>{company}</h3>
+      <h3 className='lead'>{company}</h3>
       <p>
         <Moment format='YYYY/MM/DD'>{from}</Moment> -{' '}
         {!to ? 'Now' : <Moment format='YYYY/MM/DD'>{to}</Moment>}
       </p>
       <p>
-        <strong>Position: </strong>
+        <b>Position: </b>
         {title}
       </p>
       <p>
-        <strong>Description: </strong>
+        <b>Description: </b>
         {description}
       </p>
     </div>

@@ -26,44 +26,49 @@ const Profile = ({
         <Spinner />
       ) : (
         <Fragment>
-          <Link className='btn btn-light' to='/profiles'>
-            Back To Profiles
-          </Link>
+          <div className='back-btn'>
+            <Link className='btn orange' to='/profiles'>
+              Back To Profiles
+            </Link>
+          </div>
           {auth.isAuthenticated &&
             auth.loading === false &&
             auth.user._id === profile.user._id && (
-              <Link to='/edit-profile' className='btn btn-dark'>
-                Edit Profile
-              </Link>
+              <div className='edit-btn'>
+                <Link to='/edit-profile' className='btn blue'>
+                  Edit Profile
+                </Link>
+              </div>
             )}
-          <div className='profile-grid my-1'>
+          <div className='profile-container m-1'>
             <ProfileTop profile={profile} />
             <ProfileAbout profile={profile} />
-            <div className='profile-exp bg-white p-2'>
-              <h2 className='text-primary'>Experience</h2>
-              {profile.experience.length > 0 ? (
-                <Fragment>
-                  {profile.experience.map((exp) => (
-                    <ProfileExperience key={exp._id} experience={exp} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No Experience Credentials</h4>
-              )}
+            <div className='profile-grid'>
+              <div className='profile-exp card-panel p-1'>
+                <h2 className='large'>Experience</h2>
+                {profile.experience.length > 0 ? (
+                  <Fragment>
+                    {profile.experience.map((exp) => (
+                      <ProfileExperience key={exp._id} experience={exp} />
+                    ))}
+                  </Fragment>
+                ) : (
+                  <h4>No Experience Credentials</h4>
+                )}
+              </div>
+              <div className='profile-edu card-panel p-1'>
+                <h2 className='large'>Education</h2>
+                {profile.education.length > 0 ? (
+                  <Fragment>
+                    {profile.education.map((edu) => (
+                      <ProfileEducation key={edu._id} education={edu} />
+                    ))}
+                  </Fragment>
+                ) : (
+                  <h4>No Education Credentials</h4>
+                )}
+              </div>
             </div>
-            <div className='profile-edu bg-white p-2'>
-              <h2 className='text-primary'>Education</h2>
-              {profile.education.length > 0 ? (
-                <Fragment>
-                  {profile.education.map((edu) => (
-                    <ProfileEducation key={edu._id} education={edu} />
-                  ))}
-                </Fragment>
-              ) : (
-                <h4>No Education Credentials</h4>
-              )}
-            </div>
-
             {profile.githubusername && (
               <ProfileGithub username={profile.githubusername} />
             )}
