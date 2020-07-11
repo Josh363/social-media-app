@@ -59,7 +59,7 @@ const Login = ({ login, isAuthenticated }) => {
             required
           />
         </div>
-        <button class='btn waves-effect waves-light blue' type='submit'>
+        <button className='btn waves-effect waves-light blue' type='submit'>
           Submit
         </button>
       </form>

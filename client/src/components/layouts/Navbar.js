@@ -9,7 +9,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <ul className='right hide-on-med-and-down'>
       <li>
         <Link to='/profiles'>
-          fixe <i className='material-icons right'>people</i>Profiles
+          <i className='material-icons right'>people</i>Profiles
         </Link>
       </li>
       <li>
@@ -39,18 +39,18 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   const guestLinks = (
     <ul className='right hide-on-med-and-down'>
       <li>
-        <Link to='/profiles' className='btn orange'>
-          Developers
+        <Link to='/profiles'>
+          <i className='material-icons right'>people</i>Profiles
         </Link>
       </li>
       <li>
-        <Link to='/register' className='btn orange'>
-          Register
+        <Link to='/register'>
+          <i className='material-icons right'>border_color</i>Register
         </Link>
       </li>
       <li>
-        <Link to='/login' className='btn orange'>
-          Login
+        <Link to='/login'>
+          <i className='material-icons right'>vpn_key</i>Login
         </Link>
       </li>
     </ul>
@@ -85,17 +85,17 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <ul className='sidenav' id='mobile-menu'>
       <li>
         <Link className='sidenav-close' to='/profiles'>
-          Developers
+          <i className='material-icons'>people</i>Profiles
         </Link>
       </li>
       <li>
         <Link className='sidenav-close' to='/register'>
-          Register
+          <i className='material-icons'>border_color</i>Register
         </Link>
       </li>
       <li>
         <Link className='sidenav-close' to='/login'>
-          Login
+          <i className='material-icons'>vpn_key</i>Login
         </Link>
       </li>
     </ul>
@@ -105,14 +105,8 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
     <Fragment>
       <div className='navbar-fixed'>
         <nav className='blue'>
-          <div className='container'></div>
-          <div className='nav-wrapper container'>
-            <Link
-              className='brand-logo tooltipped'
-              to='/'
-              data-position='bottom'
-              data-tooltip='I am a tooltip'
-            >
+          <div className='nav-wrapper cont'>
+            <Link className='brand-logo' to='/'>
               <i className='material-icons'>computer</i> DS
             </Link>
             <a href='#!' data-target='mobile-menu' className='sidenav-trigger'>
@@ -141,5 +135,3 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, { logout })(Navbar)
-
-//Finish NabBar Icons, remove buttons, and add education forms

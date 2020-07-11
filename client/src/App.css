@@ -9,6 +9,20 @@
   --success-color: #4caf50;
 }
 
+.cont {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
+
+.left-m {
+  margin-left: 1em;
+}
+
+.small {
+  width: 100px;
+}
+
 .badge {
   font-size: 0.8rem;
   padding: 0.1rem;
@@ -101,7 +115,7 @@ body {
 
 /* Landing */
 .icon-showcase {
-  margin-top: 80px;
+  margin-top: 50px;
 }
 
 .land-btn {
@@ -225,6 +239,10 @@ body {
   grid-gap: 10px;
 }
 
+.divider:last-child {
+  display: none;
+}
+
 /* Profile Github Repos */
 .repo {
   display: flex;
@@ -233,4 +251,15 @@ body {
 
 .repo-title {
   color: var(--primary-color);
+}
+
+/* Post Comments */
+.comment-card {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.bottom-corner {
+  display: flex;
+  justify-content: flex-end;
 }

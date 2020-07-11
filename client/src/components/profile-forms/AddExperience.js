@@ -67,7 +67,13 @@ const AddExperience = ({ addExperience, history }) => {
         </div>
         <div className='input-field'>
           <h4>From Date</h4>
-          <input type='date' name='from' value={from} onChange={onChange} />
+          <input
+            type='date'
+            name='from'
+            value={from}
+            onChange={onChange}
+            required
+          />
         </div>
         <div className='input-field'>
           <p>
@@ -106,6 +112,7 @@ const AddExperience = ({ addExperience, history }) => {
             value={description}
             onChange={onChange}
             className='materialize-textarea'
+            required
           ></textarea>
         </div>
         <input type='submit' className='btn blue m-1' />

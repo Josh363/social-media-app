@@ -67,7 +67,7 @@ const AddEducation = ({ addEducation, history }) => {
         <div className='input-field'>
           <input
             type='text'
-            placeholder='Field of Study'
+            placeholder='* Field of Study'
             name='fieldofstudy'
             value={fieldofstudy}
             onChange={onChange}
@@ -75,7 +75,13 @@ const AddEducation = ({ addEducation, history }) => {
         </div>
         <div className='input-field'>
           <h4>From Date</h4>
-          <input type='date' name='from' value={from} onChange={onChange} />
+          <input
+            type='date'
+            name='from'
+            value={from}
+            onChange={onChange}
+            required
+          />
         </div>
         <div className='input-field'>
           <p>
@@ -108,12 +114,11 @@ const AddEducation = ({ addEducation, history }) => {
         <div className='input-field'>
           <textarea
             name='description'
-            cols='30'
-            rows='5'
             placeholder='Program Description'
             value={description}
             onChange={onChange}
             className='materialize-textarea'
+            required
           ></textarea>
         </div>
         <input type='submit' className='btn blue m-1' />
