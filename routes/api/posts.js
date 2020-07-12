@@ -146,7 +146,7 @@ router.put('/unlike/:id', auth, async (req, res) => {
   }
 })
 
-//@route Post api/posts/comment
+//@route Post api/posts/comment/:id
 //@desc Comment on a post
 //@access Private
 router.post(

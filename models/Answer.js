@@ -1,22 +1,28 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const PostSchema = new Schema({
+const AnswerSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user',
+  },
+  question: {
+    type: Schema.Types.ObjectId,
+    ref: 'question',
   },
   text: {
     type: String,
     required: true,
   },
-  name: {
-    type: String,
+  views: {
+    type: Number,
+    required: true,
   },
-  avatar: {
-    type: String,
+  date: {
+    type: Date,
+    default: Date.now,
   },
-  likes: [
+  answerLikes: [
     {
       user: {
         type: Schema.Types.ObjectId,
@@ -40,16 +46,20 @@ const PostSchema = new Schema({
       avatar: {
         type: String,
       },
+      commentLikes: [
+        {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: 'user',
+          },
+        },
+      ],
       date: {
         type: Date,
         default: Date.now,
       },
     },
   ],
-  date: {
-    type: Date,
-    default: Date.now,
-  },
 })
 
-module.exports = Post = mongoose.model('post', PostSchema)
+module.exports = Answer = mongoose.model('answer', AnswerSchema)
