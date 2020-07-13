@@ -16,7 +16,6 @@ const QuestionSchema = new Schema({
   },
   views: {
     type: Number,
-    required: true,
   },
   date: {
     type: Date,
@@ -24,4 +23,4 @@ const QuestionSchema = new Schema({
   },
 })
 
-module.exports = Question = mongoose.model('topic', QuestionSchema)
+module.exports = Question = mongoose.model('question', QuestionSchema)

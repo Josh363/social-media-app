@@ -14,10 +14,12 @@ import Profiles from './components/profiles/Profiles'
 import Profile from './components/profile/Profile'
 import Posts from './components/posts/Posts'
 import Post from './components/post/Post'
+import Topics from './components/topics/Topics'
+import Questions from './components/questions/Questions'
 //styles
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css/dist/js/materialize.min.js'
-import './App.css' //I removed <Alert />
+import './App.css'
 //Redux
 import { Provider } from 'react-redux'
 import store from './store'
@@ -49,6 +51,8 @@ const App = () => {
               <Route exact path='/login' component={Login} />
               <Route exact path='/profiles' component={Profiles} />
               <Route exact path='/profile/:id' component={Profile} />
+              <Route exact path='/questions' component={Topics} />
+              <Route exact path='/questions/:topicId' component={Questions} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute
                 exact

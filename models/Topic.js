@@ -12,7 +12,6 @@ const TopicSchema = new Schema({
   },
   views: {
     type: Number,
-    required: true,
   },
   date: {
     type: Date,
