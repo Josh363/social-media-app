@@ -79,13 +79,10 @@ const ProfileForm = ({
     e.preventDefault()
     if (profile) {
       createProfile(formData, history, true)
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth',
-      })
+      smoothScroll()
     } else {
       createProfile(formData, history)
+      smoothScroll()
     }
   }
 
@@ -101,8 +98,15 @@ const ProfileForm = ({
       <small>* = required field</small>
       <form onSubmit={onSubmit} className='form'>
         <div className='input-field'>
-          <select name='status' value={status} onChange={onChange}>
-            <option value='0'>* Select Professional Status</option>
+          <select
+            name='status'
+            value={status}
+            className='browser-default'
+            onChange={onChange}
+          >
+            <option value='' disabled selected>
+              * Select Professional Status
+            </option>
             <option value='Developer'>Developer</option>
             <option value='Junior Developer'>Junior Developer</option>
             <option value='Senior Developer'>Senior Developer</option>
@@ -267,6 +271,14 @@ ProfileForm.propTypes = {
 const mapStateToProps = (state) => ({
   profile: state.profile,
 })
+
+const smoothScroll = () => {
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'smooth',
+  })
+}
 
 export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
   withRouter(ProfileForm)

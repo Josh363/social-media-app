@@ -69,6 +69,11 @@ body {
   margin: 1em;
 }
 
+.m-1-icon {
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
 .m-2-top {
   margin-top: 2em;
 }

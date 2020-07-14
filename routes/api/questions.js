@@ -6,12 +6,14 @@ const auth = require('../../middleware/auth')
 const User = require('../../models/User')
 const Question = require('../../models/Question')
 
-//@route GET api/questions/:topicID
-//@desc Get all questions for the topic id
+//@route GET api/questions/:topicname
+//@desc Get all questions for the topic name
 //@access Public
-router.get('/:topic_id', async (req, res) => {
+router.get('/:topic_name', async (req, res) => {
   try {
-    const questions = await Question.find({ topic: req.params.topic_id }).sort({
+    const questions = await Question.find({
+      topic: req.params.topic_name,
+    }).sort({
       views: -1,
     })
     res.json(questions)
@@ -21,11 +23,11 @@ router.get('/:topic_id', async (req, res) => {
   }
 })
 
-//@route Post api/questions/:topicId
-//@desc Create a new question
+//@route Post api/questions/:topicname
+//@desc Create a new question by topicname
 //@access Private
 router.post(
-  '/:topic_id',
+  '/:topic_name',
   [auth, [body('text', 'Text is required').not().isEmpty()]],
   async (req, res) => {
     const errors = validationResult(req)
@@ -42,9 +44,58 @@ router.post(
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ')
 
-    const question = await Question.findOne({ text: formattedQuestion })
-    //check if question already exists
-    if (question) {
+    const questionByText = await Question.findOne({ text: formattedQuestion })
+    //check if question is a duplicate by text
+    if (questionByText) {
+      return res.status(400).json({ msg: 'Topic already exists' })
+    }
+
+    //Make Question Object
+    const newQuestion = {
+      text: formattedQuestion,
+      views,
+      user: req.user.id,
+      topic: req.params.topic_name,
+    }
+
+    try {
+      //add and save new question object
+      const question = new Question(newQuestion)
+
+      await question.save()
+
+      res.json(question)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+//@route PUT api/questions/:questionId
+//@desc Update existing question
+//@access Private
+router.put(
+  '/:question_id',
+  [auth, [body('text', 'Text is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    const { text, views } = req.body
+    //format question so that each word starts with an uppercase
+    let formattedQuestion = text
+      .trim()
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+
+    const questionByText = await Question.findOne({ text: formattedQuestion })
+    //check if question is a duplicate by text
+    if (questionByText) {
       return res.status(400).json({ msg: 'Topic already exists' })
     }
 
@@ -53,7 +104,7 @@ router.post(
         text: formattedQuestion,
         views,
         user: req.user.id,
-        topic: req.params.topic_id,
+        topic: req.params.topic_name,
       })
 
       const question = await newQuestion.save()

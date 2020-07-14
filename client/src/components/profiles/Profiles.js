@@ -20,8 +20,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
         <div className='profiles-heading center'>
           <h1 className='large'>Developers</h1>
           <p className='lead'>
-            <i className='fab fa-connectdevelop'></i> Browse and connect with
-            developers
+            <i className='material-icons blue-text'>camera_front</i> Browse and
+            connect with developers
           </p>
           <div className='profiles'>
             {profiles.length > 0 ? (

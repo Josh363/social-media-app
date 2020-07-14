@@ -54,6 +54,12 @@ const Topics = ({
           </div>
         </form>
       </div>
+      <Link className='btn blue' to={`/questions`}>
+        View All Questions
+      </Link>
+      <Link className='btn orange' to={`/answers`}>
+        View All Answers
+      </Link>
       <div className='topics-collection'>
         <ul className='collection with-header'>
           <li className='collection-header'>
@@ -64,7 +70,7 @@ const Topics = ({
           ) : (
             topics.map((topic) => (
               <li key={topic._id} className='collection-item'>
-                <Link className='blue-text' to={`/questions/${topic._id}`}>
+                <Link className='blue-text' to={`/questions/${topic.text}`}>
                   {topic.text}
                 </Link>
                 <a

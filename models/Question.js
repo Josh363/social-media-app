@@ -7,7 +7,7 @@ const QuestionSchema = new Schema({
     ref: 'user',
   },
   topic: {
-    type: Schema.Types.ObjectId,
+    type: Schema.Types.String,
     ref: 'topic',
   },
   text: {

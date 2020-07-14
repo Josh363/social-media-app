@@ -27,7 +27,7 @@ const Profile = ({
       ) : (
         <Fragment>
           <div className='back-btn'>
-            <Link className='btn orange' to='/profiles'>
+            <Link className='btn blue' to='/profiles'>
               Back To Profiles
             </Link>
           </div>
@@ -35,7 +35,7 @@ const Profile = ({
             auth.loading === false &&
             auth.user._id === profile.user._id && (
               <div className='edit-btn'>
-                <Link to='/edit-profile' className='btn blue'>
+                <Link to='/edit-profile' className='btn orange'>
                   Edit Profile
                 </Link>
               </div>

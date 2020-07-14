@@ -12,9 +12,9 @@ import {
 } from './types'
 
 //Get All Questions by topic id
-export const getQuestions = (topicId) => async (dispatch) => {
+export const getQuestions = (topicName) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/questions/${topicId}`)
+    const res = await axios.get(`/api/questions/${topicName}`)
     dispatch({
       type: GET_QUESTIONS,
       payload: res.data,
@@ -28,7 +28,7 @@ export const getQuestions = (topicId) => async (dispatch) => {
 }
 
 //Add New Question by Topic ID
-export const addQuestion = (formData, topicId) => async (dispatch) => {
+export const addQuestion = (formData, topicName) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -36,7 +36,11 @@ export const addQuestion = (formData, topicId) => async (dispatch) => {
   }
 
   try {
-    const res = await axios.post(`/api/questions/${topicId}`, formData, config)
+    const res = await axios.post(
+      `/api/questions/${topicName}`,
+      formData,
+      config
+    )
     dispatch({
       type: ADD_QUESTION,
       payload: res.data,

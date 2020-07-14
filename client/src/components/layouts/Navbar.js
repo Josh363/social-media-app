@@ -18,7 +18,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to='/questions'>
+        <Link to='/topics'>
           <i className='material-icons right'>question_answer</i>Q&A
         </Link>
       </li>
@@ -74,9 +74,14 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <a className='sidenav-close' onClick={logout} href='#!'>
+        <Link to='/topics'>
+          <i className='material-icons'>question_answer</i>Q&A
+        </Link>
+      </li>
+      <li>
+        <Link className='sidenav-close' onClick={logout} to='/login'>
           <i className='material-icons'>vpn_key</i>Logout
-        </a>
+        </Link>
       </li>
     </ul>
   )

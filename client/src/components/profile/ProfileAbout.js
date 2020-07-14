@@ -14,9 +14,9 @@ const ProfileAbout = ({
         <Fragment>
           <h2 className='large'>{name.trim().split(' ')[0]}s Bio</h2>
           <p>{bio}</p>
+          <div className='divider'></div>
         </Fragment>
       )}
-      <div className='divider'></div>
 
       <div className='center'>
         <h2 className='lead'>Skill Set</h2>

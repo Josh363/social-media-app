@@ -51,8 +51,8 @@ const App = () => {
               <Route exact path='/login' component={Login} />
               <Route exact path='/profiles' component={Profiles} />
               <Route exact path='/profile/:id' component={Profile} />
-              <Route exact path='/questions' component={Topics} />
-              <Route exact path='/questions/:topicId' component={Questions} />
+              <Route exact path='/topics' component={Topics} />
+              <Route exact path='/questions/:topicName' component={Questions} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute
                 exact
