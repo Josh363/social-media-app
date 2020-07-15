@@ -74,7 +74,7 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Link>
       </li>
       <li>
-        <Link to='/topics'>
+        <Link to='/topics' className='sidenav-close'>
           <i className='material-icons'>question_answer</i>Q&A
         </Link>
       </li>

@@ -1,30 +1,70 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 
 const Answers = (props) => {
-  const onSubmit = () => {
-    console.log('submitted')
-  }
   return (
-    <div id='answer-modal' class='modal'>
-      <div class='modal-content'>
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+    <Fragment>
+      <div className='search-form'>
+        <form>
+          <div className='input-field'>
+            <input id='search' type='search' placeholder='Seach for Answers' />
+            <i className='material-icons'>close</i>
+          </div>
+        </form>
       </div>
-      <div class='modal-footer'>
-        <a href='#!' class='modal-close waves-effect waves-green btn-flat'>
-          Agree
-        </a>
+      <div className='answer-form card-panel'>
+        <form>
+          <div className='input-field'>
+            <textarea
+              placeholder='Place Your Answer Here'
+              name='answer'
+              className='materialize-textarea'
+            ></textarea>
+            <small>Try to be as concise as possible</small>
+          </div>
+        </form>
       </div>
-    </div>
+      <div className='question-box card-panel'>
+        <h1 className='lead'>
+          Place Question Here/Additional information about the question
+        </h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut quod
+          accusamus possimus commodi odit accusantium impedit quae magnam illo
+          est repellendus atque, neque illum fugiat nihil sunt laborum ullam
+          autem.
+        </p>
+      </div>
+      <div className='answer-box card-panel'>
+        <p>Answer text by</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium
+          aliquid consequatur ipsum quisquam, incidunt temporibus dolorum
+          dolores quidem unde harum earum assumenda deleniti suscipit libero,
+          mollitia quia nesciunt voluptatem asperiores.
+        </p>
+        <div className='card-panel'>
+          <p>Comments</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt at
+            architecto cupiditate est ipsam pariatur doloremque ab veritatis
+            praesentium neque, tempore libero nostrum ipsa excepturi fugit vel
+            iste minus id!
+          </p>
+          <div className='divider'></div>
+          <p>Comments</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt at
+            architecto cupiditate est ipsam pariatur doloremque ab veritatis
+            praesentium neque, tempore libero nostrum ipsa excepturi fugit vel
+            iste minus id!
+          </p>
+        </div>
+      </div>
+    </Fragment>
   )
 }
 
 Answers.propTypes = {}
-
-const modalStyle = {
-  width: '75%',
-  height: '75%',
-}
 
 export default Answers

@@ -6,12 +6,14 @@ import {
   ADD_TOPIC,
   DELETE_TOPIC,
   SET_CURRENT_TOPIC,
+  CLEAR_CURRENT_TOPIC,
 } from '../actions/types'
 
 const initialState = {
   topics: null,
   loading: true,
   error: {},
+  current: null,
 }
 
 export default function (state = initialState, action) {
@@ -27,8 +29,25 @@ export default function (state = initialState, action) {
     case ADD_TOPIC:
       return {
         ...state,
-        topics: [payload, ...state.topics],
+        topics: [...state.topics, payload],
         loading: false,
+      }
+    case UPDATE_TOPIC:
+      return {
+        ...state,
+        topics: state.topics.map((topic) =>
+          topic._id === payload._id ? payload : topic
+        ),
+      }
+    case SET_CURRENT_TOPIC:
+      return {
+        ...state,
+        current: payload,
+      }
+    case CLEAR_CURRENT_TOPIC:
+      return {
+        ...state,
+        current: null,
       }
     case DELETE_TOPIC:
       return {

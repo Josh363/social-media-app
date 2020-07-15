@@ -16,6 +16,7 @@ import Posts from './components/posts/Posts'
 import Post from './components/post/Post'
 import Topics from './components/topics/Topics'
 import Questions from './components/questions/Questions'
+import Answers from './components/answers/Answers'
 //styles
 import 'materialize-css/dist/css/materialize.min.css'
 import M from 'materialize-css/dist/js/materialize.min.js'
@@ -51,8 +52,17 @@ const App = () => {
               <Route exact path='/login' component={Login} />
               <Route exact path='/profiles' component={Profiles} />
               <Route exact path='/profile/:id' component={Profile} />
-              <Route exact path='/topics' component={Topics} />
-              <Route exact path='/questions/:topicName' component={Questions} />
+              <PrivateRoute exact path='/topics' component={Topics} />
+              <PrivateRoute
+                exact
+                path='/questions/:topicName'
+                component={Questions}
+              />
+              <PrivateRoute
+                exact
+                path='/answers/:questionId'
+                component={Answers}
+              />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute
                 exact

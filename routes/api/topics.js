@@ -9,7 +9,7 @@ const Topic = require('../../models/Topic')
 //@route GET api/topics
 //@desc Get all topics
 //@access Public
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const topics = await Topic.find().sort({ views: -1 })
     res.json(topics)

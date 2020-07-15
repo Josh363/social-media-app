@@ -8,6 +8,7 @@ import {
   TOPIC_ERROR,
   ADD_TOPIC,
   SET_CURRENT_TOPIC,
+  CLEAR_CURRENT_TOPIC,
   DELETE_TOPIC,
 } from './types'
 
@@ -71,5 +72,49 @@ export const deleteTopic = (id) => async (dispatch) => {
       type: TOPIC_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     })
+  }
+}
+
+//Update current topic
+export const updateTopic = (formData, topicId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+
+  try {
+    const res = await axios.put(`/api/topics/${topicId}`, formData, config)
+    dispatch({
+      type: UPDATE_TOPIC,
+      payload: res.data,
+    })
+
+    dispatch(setAlert('Topic Edited', 'success'))
+    dispatch(clearCurrentTopic())
+  } catch (err) {
+    //custom err message if topic already exists
+    const errMsg = err.response.data.msg
+    dispatch(setAlert(errMsg, 'danger'))
+
+    dispatch({
+      type: TOPIC_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
+// Set current log
+export const getCurrentTopic = (topic) => {
+  return {
+    type: SET_CURRENT_TOPIC,
+    payload: topic,
+  }
+}
+
+// Clear current log
+export const clearCurrentTopic = () => {
+  return {
+    type: CLEAR_CURRENT_TOPIC,
   }
 }

@@ -3,24 +3,46 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layouts/Spinner'
 import { Link } from 'react-router-dom'
-import { getTopics, addTopic, deleteTopic } from '../../actions/topic'
+import {
+  getTopics,
+  addTopic,
+  deleteTopic,
+  getCurrentTopic,
+  updateTopic,
+} from '../../actions/topic'
 
 const Topics = ({
   getTopics,
   addTopic,
   deleteTopic,
-  topic: { topics, loading },
+  updateTopic,
+  getCurrentTopic,
+  topic: { topics, loading, current },
 }) => {
   useEffect(() => {
+    //get topics
     getTopics()
-  }, [getTopics])
+    // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    //get current topic to update if current field is filled
+    if (current) {
+      setText(current.text)
+    }
+  }, [current])
 
   const [text, setText] = useState('')
 
   const onSubmit = (e) => {
     e.preventDefault()
-    addTopic({ text })
-    setText('')
+    if (current) {
+      updateTopic({ text }, current._id)
+      setText('')
+    } else {
+      addTopic({ text })
+      setText('')
+    }
   }
 
   if (loading || topics === null) {
@@ -55,14 +77,16 @@ const Topics = ({
         </form>
       </div>
       <Link className='btn blue' to={`/questions`}>
+        <i className='material-icons left'>help</i>
         View All Questions
       </Link>
       <Link className='btn orange' to={`/answers`}>
+        <i className='material-icons left'>import_contacts</i>
         View All Answers
       </Link>
       <div className='topics-collection'>
         <ul className='collection with-header'>
-          <li className='collection-header'>
+          <li className='collection-header col'>
             <h4 className='center'>Topics</h4>
           </li>
           {!loading && topics.length === 0 ? (
@@ -78,7 +102,14 @@ const Topics = ({
                   onClick={() => deleteTopic(topic._id)}
                   className='secondary-content'
                 >
-                  <i className='material-icons grey-text'>delete</i>
+                  <i className='material-icons right left grey-text'>delete</i>
+                </a>
+                <a
+                  href='#!'
+                  onClick={() => getCurrentTopic(topic)}
+                  className='secondary-content'
+                >
+                  <i className='material-icons blue-text'>build</i>
                 </a>
               </li>
             ))
@@ -93,6 +124,8 @@ Topics.propTypes = {
   getTopics: PropTypes.func.isRequired,
   addTopic: PropTypes.func.isRequired,
   deleteTopic: PropTypes.func.isRequired,
+  updateTopic: PropTypes.func.isRequired,
+  getCurrentTopic: PropTypes.func.isRequired,
   topic: PropTypes.object.isRequired,
 }
 
@@ -100,6 +133,10 @@ const mapStateToProps = (state) => ({
   topic: state.topic,
 })
 
-export default connect(mapStateToProps, { getTopics, addTopic, deleteTopic })(
-  Topics
-)
+export default connect(mapStateToProps, {
+  getTopics,
+  addTopic,
+  deleteTopic,
+  updateTopic,
+  getCurrentTopic,
+})(Topics)

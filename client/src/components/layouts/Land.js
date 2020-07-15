@@ -32,15 +32,17 @@ const Land = ({ isAuthenticated }) => {
       </div>
       <div className='icon-showcase'>
         <div className='icon-1 col s4'>
-          <i className='large material-icons red accent-2'>account_box</i>
+          <i className='large material-icons red-text text-accent-2'>
+            account_box
+          </i>
           <p>Find other Developers</p>
         </div>
         <div className='icon2 col s4'>
-          <i className='large material-icons blue'>insert_chart</i>
+          <i className='large material-icons blue-text'>insert_chart</i>
           <p>Get Access to useful content</p>
         </div>
         <div className='icon3 col s4'>
-          <i className='large material-icons red accent-2'>build</i>
+          <i className='large material-icons red-text text-accent-2'>build</i>
           <p>Build lasting relationships</p>
         </div>
       </div>
