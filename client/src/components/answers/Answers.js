@@ -43,7 +43,19 @@ const Answers = (props) => {
           dolores quidem unde harum earum assumenda deleniti suscipit libero,
           mollitia quia nesciunt voluptatem asperiores.
         </p>
-        <div className='card-panel'>
+        <div className='comment-form card-panel'>
+          <form>
+            <div className='input-field'>
+              <textarea
+                placeholder='Place Your Comment Here'
+                name='comment'
+                className='materialize-textarea'
+              ></textarea>
+              <small>Try to be as concise as possible</small>
+            </div>
+          </form>
+        </div>
+        <div className='comment-box card-panel'>
           <p>Comments</p>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt at

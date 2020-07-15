@@ -6,6 +6,21 @@ const auth = require('../../middleware/auth')
 const User = require('../../models/User')
 const Question = require('../../models/Question')
 
+//@route GET api/questions
+//@desc Get all questions
+//@access Private
+router.get('/', auth, async (req, res) => {
+  try {
+    const questions = await Question.find().sort({
+      views: -1,
+    })
+    res.json(questions)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
 //@route GET api/questions/:topicname
 //@desc Get all questions for the topic name
 //@access Public

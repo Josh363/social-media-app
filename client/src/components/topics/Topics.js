@@ -64,7 +64,11 @@ const Topics = ({
           <div className='input-field'>
             <input
               type='text'
-              placeholder='Add a New Topic'
+              placeholder={
+                current
+                  ? `You are now editing ${current.text}`
+                  : 'Add a new topic'
+              }
               name='text'
               value={text}
               onChange={(e) => setText(e.target.value)}

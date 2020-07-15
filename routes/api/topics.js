@@ -67,12 +67,11 @@ router.post(
 //@desc Update the Topic text and/or add views
 //@access Private
 router.put('/:topic_id', auth, async (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() })
-  }
-
   const { text, views } = req.body
+
+  if (text.trim().split('').length === 0) {
+    return res.status(400).json({ msg: 'Topic must be filled out' })
+  }
 
   //create updated topic object
   const updatedTopic = {}
