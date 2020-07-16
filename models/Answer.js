@@ -14,6 +14,12 @@ const AnswerSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+  },
+  avatar: {
+    type: String,
+  },
   views: {
     type: Number,
   },

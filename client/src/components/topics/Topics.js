@@ -9,6 +9,7 @@ import {
   deleteTopic,
   getCurrentTopic,
   updateTopic,
+  clearCurrentTopic,
 } from '../../actions/topic'
 
 const Topics = ({

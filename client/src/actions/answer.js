@@ -94,7 +94,7 @@ export const addAnswer = (formData, questionId) => async (dispatch) => {
     dispatch(setAlert('Answer Added', 'success'))
   } catch (err) {
     dispatch({
-      type: POST_ERROR,
+      type: ANSWER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     })
   }
@@ -131,7 +131,9 @@ export const addComment = (answerId, formData) => async (dispatch) => {
 //Delete Comment
 export const removeComment = (answerId, commentId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/answers/comment/${answerId}/${commentId}`)
+    const res = await axios.delete(
+      `/api/answers/comment/${answerId}/${commentId}`
+    )
     dispatch({
       type: REMOVE_ANSWER_COMMENT,
       payload: { answerId, answerComments: res.data },

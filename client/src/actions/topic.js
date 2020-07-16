@@ -67,6 +67,7 @@ export const deleteTopic = (id) => async (dispatch) => {
     })
 
     dispatch(setAlert('Topic Removed', 'success'))
+    dispatch(clearCurrentTopic())
   } catch (err) {
     dispatch({
       type: TOPIC_ERROR,
