@@ -163,4 +163,77 @@ router.delete('/:answer_id', auth, async (req, res) => {
   }
 })
 
+//@route Post api/answers/comment/:answer_id
+//@desc Comment on an answer
+//@access Private
+router.post(
+  '/comment/:answer_id',
+  [auth, [body('text', 'Text is required').not().isEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() })
+    }
+
+    const { text } = req.body
+
+    try {
+      const user = await User.findById(req.user.id).select('-password')
+      const answer = await Answer.findById(req.params.answer_id)
+
+      const newComment = {
+        text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id,
+      }
+
+      answer.comments = [newComment, ...answer.comments]
+
+      await answer.save()
+
+      res.json(answer.comments)
+    } catch (err) {
+      console.error(err.message)
+      res.status(500).send('Server Error')
+    }
+  }
+)
+
+//@route DELETE api/answers/comment/:answer_id/:comment_id
+//@desc Delete comment on answer
+//@access Private
+router.delete('/comment/:answer_id/:comment_id', auth, async (req, res) => {
+  try {
+    const answer = await Answer.findById(req.params.answer_id)
+
+    //pull out comment
+    const comment = answer.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    )
+
+    //Make sure comment exists
+    if (!comment) {
+      return res.status(404).json({ msg: 'Comment does not exist' })
+    }
+
+    //Check if comment belongs to user
+    if (comment.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' })
+    }
+
+    //filter out comment
+    answer.comments = answer.comments.filter(
+      (comment) => comment.id.toString() !== req.params.comment_id
+    )
+
+    //save and return comments
+    await answer.save()
+    res.json(answer.comments)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
 module.exports = router

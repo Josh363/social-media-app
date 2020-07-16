@@ -14,7 +14,6 @@ const initialState = {
   post: null,
   loading: true,
   error: {},
-  rocky: true,
 }
 
 export default function (state = initialState, action) {
