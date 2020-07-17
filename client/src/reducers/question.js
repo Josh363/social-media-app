@@ -1,5 +1,6 @@
 import {
   GET_QUESTIONS,
+  GET_QUESTION,
   UPDATE_QUESTION,
   ADD_VIEW,
   QUESTION_ERROR,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
   questions: null,
+  question: null,
   loading: true,
   error: {},
 }
@@ -22,6 +24,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         questions: payload,
+        loading: false,
+      }
+    case GET_QUESTION:
+      return {
+        ...state,
+        question: payload,
         loading: false,
       }
     case ADD_QUESTION:

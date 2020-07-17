@@ -53,6 +53,17 @@ export default function (state = initialState, action) {
         loading: false,
       }
     case ADD_ANSWER_COMMENT:
+      return {
+        ...state,
+        answers: state.answers.map((answer) =>
+          answer._id === payload.answerId
+            ? {
+                ...answer,
+                comments: payload.comments,
+              }
+            : answer
+        ),
+      }
     case REMOVE_ANSWER_COMMENT:
       return {
         ...state,
@@ -60,7 +71,9 @@ export default function (state = initialState, action) {
           answer._id === payload.answerId
             ? {
                 ...answer,
-                answerComments: payload.answerComments,
+                comments: answer.comments.filter(
+                  (comment) => comment._id !== payload.commentId
+                ),
               }
             : answer
         ),

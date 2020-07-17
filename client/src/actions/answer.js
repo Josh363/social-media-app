@@ -93,6 +93,8 @@ export const addAnswer = (formData, questionId) => async (dispatch) => {
 
     dispatch(setAlert('Answer Added', 'success'))
   } catch (err) {
+    const errMsg = err.response.data.msg
+    dispatch(setAlert(errMsg, 'danger'))
     dispatch({
       type: ANSWER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
@@ -116,7 +118,7 @@ export const addComment = (answerId, formData) => async (dispatch) => {
     )
     dispatch({
       type: ADD_ANSWER_COMMENT,
-      payload: { answerId, answerComments: res.data },
+      payload: { answerId, comments: res.data },
     })
 
     dispatch(setAlert('Comment Added', 'success'))
@@ -136,7 +138,7 @@ export const removeComment = (answerId, commentId) => async (dispatch) => {
     )
     dispatch({
       type: REMOVE_ANSWER_COMMENT,
-      payload: { answerId, answerComments: res.data },
+      payload: { answerId, commentId },
     })
 
     dispatch(setAlert('Comment Deleted', 'success'))

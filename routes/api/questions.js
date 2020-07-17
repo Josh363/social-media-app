@@ -21,6 +21,19 @@ router.get('/', auth, async (req, res) => {
   }
 })
 
+//@route GET api/questions/question_id
+//@desc Get one question by id
+//@access Private
+router.get('/single/:question_id', auth, async (req, res) => {
+  try {
+    const question = await Question.findById(req.params.question_id)
+    res.json(question)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
+
 //@route GET api/questions/:topicname
 //@desc Get all questions for the topic name
 //@access Public

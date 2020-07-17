@@ -3,6 +3,7 @@ import { setAlert } from './alert'
 
 import {
   GET_QUESTIONS,
+  GET_QUESTION,
   UPDATE_QUESTION,
   ADD_VIEW,
   QUESTION_ERROR,
@@ -17,6 +18,22 @@ export const getQuestions = (topicName) => async (dispatch) => {
     const res = await axios.get(`/api/questions/${topicName}`)
     dispatch({
       type: GET_QUESTIONS,
+      payload: res.data,
+    })
+  } catch (err) {
+    dispatch({
+      type: QUESTION_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
+//Get a single question by question ID
+export const getQuestion = (questionId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/questions/single/${questionId}`)
+    dispatch({
+      type: GET_QUESTION,
       payload: res.data,
     })
   } catch (err) {

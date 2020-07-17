@@ -11,9 +11,7 @@ const Answer = require('../../models/Answer')
 //@access Private
 router.get('/', auth, async (req, res) => {
   try {
-    const answers = await Answer.find().sort({
-      views: -1,
-    })
+    const answers = await Answer.find()
     res.json(answers)
   } catch (err) {
     console.error(err.message)
@@ -47,7 +45,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
+      return res.status(400).json({ msg: 'Text is Required' })
     }
 
     //check if user already wrote an answer for this question

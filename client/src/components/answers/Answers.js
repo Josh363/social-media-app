@@ -10,22 +10,30 @@ import {
   addComment,
   removeComment,
 } from '../../actions/answer'
+import { getQuestion } from '../../actions/question'
 
 const Answers = ({
   match,
+  getQuestion,
   getAnswers,
   addAnswer,
   deleteAnswer,
   addComment,
   removeComment,
   answer: { answers, loading },
+  question,
+  auth,
 }) => {
   useEffect(() => {
     getAnswers(match.params.questionId)
+    getQuestion(match.params.questionId)
     //eslint-disable-next-line
-  })
+  }, [])
 
-  if (loading || answers === null) {
+  const [answer, setAnswer] = useState('')
+  const [comment, setComment] = useState('')
+
+  if (loading || answers === null || question.question === null) {
     return <Spinner />
   }
   return (
@@ -39,44 +47,85 @@ const Answers = ({
         </form>
       </div>
       <div className='answer-form card-panel'>
-        <form>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            addAnswer({ text: answer }, match.params.questionId)
+            setAnswer('')
+          }}
+        >
           <div className='input-field'>
             <textarea
               placeholder='Place Your Answer Here'
               name='answer'
               className='materialize-textarea'
+              value={answer}
+              onChange={(e) => setAnswer(e.target.value)}
+              required
             ></textarea>
             <small>Try to be as concise as possible</small>
+            <div className='submit-button'>
+              <input type='submit' className='btn orange' />
+            </div>
           </div>
         </form>
       </div>
-      <div className='question-box card-panel'>
-        <h1 className='lead'>
-          Place Question Here/Additional information about the question
-        </h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut quod
-          accusamus possimus commodi odit accusantium impedit quae magnam illo
-          est repellendus atque, neque illum fugiat nihil sunt laborum ullam
-          autem.
-        </p>
-      </div>
+      {!question.loading && question.question !== null && (
+        <div className='question-box card-panel'>
+          <h1 className='lead'>{question.question.text}</h1>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut quod
+            accusamus possimus commodi odit accusantium impedit quae magnam illo
+            est repellendus atque, neque illum fugiat nihil sunt laborum ullam
+            autem.
+          </p>
+        </div>
+      )}
       {!loading && answers.length === 0 ? (
         <p>There are no answers to show at this time</p>
       ) : (
         answers.map((answer) => (
           <div key={answer._id} className='answer-box card-panel'>
-            <p>Answer by {answer.name}</p>
+            <p>
+              Answer by {answer.name}
+              <a
+                href='#!'
+                onClick={() => deleteAnswer(answer._id)}
+                className='tooltip'
+              >
+                <i className='material-icons right grey-text'>delete</i>
+                <span className='tooltiptext'>Delete Answer</span>
+              </a>
+              <a
+                href='#!'
+                onClick={() => console.log('edit answer')}
+                className='tooltip'
+              >
+                <i className='material-icons right blue-text'>build</i>
+                <span className='tooltiptext'>Update Answer</span>
+              </a>
+            </p>
             <p>{answer.text}</p>
             <div className='comment-form card-panel'>
-              <form>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  addComment(answer._id, { text: comment })
+                  setComment('')
+                }}
+              >
                 <div className='input-field'>
                   <textarea
                     placeholder='Place Your Comment Here'
                     name='comment'
                     className='materialize-textarea'
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                   ></textarea>
                   <small>Try to be as concise as possible</small>
+                </div>
+                <div className='submit-button'>
+                  <input type='submit' className='btn blue' />
                 </div>
               </form>
             </div>
@@ -86,8 +135,28 @@ const Answers = ({
               answer.comments.map((comment) => (
                 <div key={comment._id} className='comment-box card-panel'>
                   <p>{comment.name}</p>
+                  {!auth.loading && comment.user === auth.user._id && (
+                    <Fragment>
+                      <a
+                        href='#!'
+                        onClick={() => removeComment(answer._id, comment._id)}
+                        className='tooltip'
+                      >
+                        <i className='material-icons right grey-text'>delete</i>
+                        <span className='tooltiptext'>Delete Comment</span>
+                      </a>
+                      <a
+                        href='#!'
+                        onClick={() => console.log('edit comment')}
+                        className='tooltip'
+                      >
+                        <i className='material-icons right blue-text'>build</i>
+                        <span className='tooltiptext'>Update Comment</span>
+                      </a>
+                    </Fragment>
+                  )}
+
                   <p>{comment.text}</p>
-                  <div className='divider'></div>
                 </div>
               ))
             )}
@@ -105,13 +174,17 @@ Answers.propTypes = {
   deleteAnswer: PropTypes.func.isRequired,
   addComment: PropTypes.func.isRequired,
   removeComment: PropTypes.func.isRequired,
+  getQuestion: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   answer: state.answer,
+  question: state.question,
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps, {
+  getQuestion,
   getAnswers,
   addAnswer,
   deleteAnswer,
