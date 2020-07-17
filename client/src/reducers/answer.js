@@ -6,9 +6,17 @@ import {
   ADD_ANSWER,
   ADD_ANSWER_COMMENT,
   REMOVE_ANSWER_COMMENT,
+  SET_CURRENT_COMMENT,
+  SET_CURRENT_ANSWER,
+  CLEAR_CURRENT_ANSWER,
+  CLEAR_CURRENT_COMMENT,
+  UPDATE_ANSWER,
+  UPDATE_COMMENT,
 } from '../actions/types'
 
 const initialState = {
+  currentAnswer: null,
+  currentComment: null,
   answers: null,
   loading: true,
   error: {},
@@ -25,6 +33,7 @@ export default function (state = initialState, action) {
         loading: false,
       }
     case ADD_ANSWER:
+    case UPDATE_ANSWER:
       return {
         ...state,
         answers: [payload, ...state.answers],
@@ -78,6 +87,26 @@ export default function (state = initialState, action) {
             : answer
         ),
         loading: false,
+      }
+    case SET_CURRENT_ANSWER:
+      return {
+        ...state,
+        currentAnswer: payload,
+      }
+    case SET_CURRENT_COMMENT:
+      return {
+        ...state,
+        currentComment: payload,
+      }
+    case CLEAR_CURRENT_COMMENT:
+      return {
+        ...state,
+        currentComment: null,
+      }
+    case CLEAR_CURRENT_ANSWER:
+      return {
+        ...state,
+        currentAnswer: null,
       }
     default:
       return state

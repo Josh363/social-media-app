@@ -2,33 +2,45 @@ import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Spinner from '../layouts/Spinner'
-import { Link } from 'react-router-dom'
 import {
   getAnswers,
   addAnswer,
   deleteAnswer,
   addComment,
   removeComment,
+  setCurrentAnswer,
+  setCurrentComment,
 } from '../../actions/answer'
 import { getQuestion } from '../../actions/question'
 
 const Answers = ({
   match,
+  setCurrentAnswer,
+  setCurrentComment,
   getQuestion,
   getAnswers,
   addAnswer,
   deleteAnswer,
   addComment,
   removeComment,
-  answer: { answers, loading },
+  answer: { answers, loading, currentAnswer, currentComment },
   question,
   auth,
 }) => {
+  //get answers and question
   useEffect(() => {
     getAnswers(match.params.questionId)
     getQuestion(match.params.questionId)
     //eslint-disable-next-line
   }, [])
+  //get current answer if not null
+  useEffect(() => {
+    if (currentAnswer) setAnswer(currentAnswer.text)
+  }, [currentAnswer])
+  //get current comment if not null
+  useEffect(() => {
+    if (currentComment) setComment(currentComment.text)
+  }, [currentComment])
 
   const [answer, setAnswer] = useState('')
   const [comment, setComment] = useState('')
@@ -98,7 +110,7 @@ const Answers = ({
               </a>
               <a
                 href='#!'
-                onClick={() => console.log('edit answer')}
+                onClick={() => setCurrentAnswer(answer)}
                 className='tooltip'
               >
                 <i className='material-icons right blue-text'>build</i>
@@ -147,7 +159,7 @@ const Answers = ({
                       </a>
                       <a
                         href='#!'
-                        onClick={() => console.log('edit comment')}
+                        onClick={() => setCurrentComment(comment)}
                         className='tooltip'
                       >
                         <i className='material-icons right blue-text'>build</i>
@@ -175,6 +187,8 @@ Answers.propTypes = {
   addComment: PropTypes.func.isRequired,
   removeComment: PropTypes.func.isRequired,
   getQuestion: PropTypes.func.isRequired,
+  setCurrentAnswer: PropTypes.func.isRequired,
+  setCurrentComment: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -184,6 +198,8 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
+  setCurrentComment,
+  setCurrentAnswer,
   getQuestion,
   getAnswers,
   addAnswer,

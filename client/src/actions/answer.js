@@ -8,6 +8,12 @@ import {
   ADD_ANSWER,
   ADD_ANSWER_COMMENT,
   REMOVE_ANSWER_COMMENT,
+  SET_CURRENT_COMMENT,
+  SET_CURRENT_ANSWER,
+  CLEAR_CURRENT_ANSWER,
+  CLEAR_CURRENT_COMMENT,
+  UPDATE_ANSWER,
+  UPDATE_COMMENT,
 } from './types'
 
 //Get Answers by Question ID
@@ -102,6 +108,35 @@ export const addAnswer = (formData, questionId) => async (dispatch) => {
   }
 }
 
+//Update current Answer
+export const updateAnswer = (formData, answerId) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+
+  try {
+    const res = await axios.put(`/api/answers/${answerId}`, formData, config)
+    dispatch({
+      type: UPDATE_ANSWER,
+      payload: res.data,
+    })
+
+    dispatch(setAlert('Answer Edited', 'success'))
+    dispatch(clearCurrentAnswer())
+  } catch (err) {
+    //custom err message if topic already exists
+    const errMsg = err.response.data.msg
+    dispatch(setAlert(errMsg, 'danger'))
+
+    dispatch({
+      type: ANSWER_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
 //Add Comment
 export const addComment = (answerId, formData) => async (dispatch) => {
   const config = {
@@ -147,5 +182,31 @@ export const removeComment = (answerId, commentId) => async (dispatch) => {
       type: ANSWER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     })
+  }
+}
+
+export const setCurrentAnswer = (answer) => {
+  return {
+    type: SET_CURRENT_ANSWER,
+    payload: answer,
+  }
+}
+
+export const setCurrentComment = (comment) => {
+  return {
+    type: SET_CURRENT_COMMENT,
+    payload: comment,
+  }
+}
+
+export const clearCurrentAnswer = () => {
+  return {
+    type: CLEAR_CURRENT_ANSWER,
+  }
+}
+
+export const clearCurrentComment = () => {
+  return {
+    type: CLEAR_CURRENT_COMMENT,
   }
 }

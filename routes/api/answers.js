@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const mongoose = require('mongoose')
 const { body, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 
@@ -122,7 +123,7 @@ router.put('/:answer_id', auth, async (req, res) => {
       return res.status(400).json({ msg: 'Answer already exists' })
     }
     //place formatted answer in updatedAnswer object
-    updatedTopic.text = formattedAnswer
+    updatedAnswer.text = formattedAnswer
   }
   if (views) updatedAnswer.views = views
 
@@ -197,6 +198,46 @@ router.post(
     }
   }
 )
+
+//@route PUT api/answers/answer_id/comment_id
+//@desc Update a comment on an answer and/or add views
+//@access Private
+router.put('/:answer_id/:comment_id', auth, async (req, res) => {
+  const { text, views } = req.body
+
+  if (text.trim().split('').length === 0) {
+    return res.status(400).json({ msg: 'Comment must be filled out' })
+  }
+
+  //check if answer/views exist
+
+  //format topic so that each word starts with an uppercase
+  let formattedAnswer = text
+    .trim()
+    .toLowerCase()
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+
+  try {
+    //update comment on answer
+    const updatedAnswer = await Answer.findOneAndUpdate(
+      { _id: req.params.answer_id },
+      {
+        $set: { 'comments.$[comment].text': formattedAnswer },
+      },
+      {
+        arrayFilters: [{ 'comment._id': req.params.comment_id }],
+        new: true,
+      }
+    )
+    //return updated answer item
+    res.json(updatedAnswer)
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+})
 
 //@route DELETE api/answers/comment/:answer_id/:comment_id
 //@desc Delete comment on answer
