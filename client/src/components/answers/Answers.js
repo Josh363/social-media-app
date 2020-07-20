@@ -10,11 +10,15 @@ import {
   removeComment,
   setCurrentAnswer,
   setCurrentComment,
+  updateAnswer,
+  updateComment,
 } from '../../actions/answer'
 import { getQuestion } from '../../actions/question'
 
 const Answers = ({
   match,
+  updateComment,
+  updateAnswer,
   setCurrentAnswer,
   setCurrentComment,
   getQuestion,
@@ -62,8 +66,15 @@ const Answers = ({
         <form
           onSubmit={(e) => {
             e.preventDefault()
-            addAnswer({ text: answer }, match.params.questionId)
-            setAnswer('')
+            if (currentAnswer) {
+              updateAnswer({ text: answer }, currentAnswer._id)
+              if (currentAnswer.text !== answer) {
+                setAnswer('')
+              }
+            } else {
+              addAnswer({ text: answer }, match.params.questionId)
+              setAnswer('')
+            }
           }}
         >
           <div className='input-field'>
@@ -122,8 +133,19 @@ const Answers = ({
               <form
                 onSubmit={(e) => {
                   e.preventDefault()
-                  addComment(answer._id, { text: comment })
-                  setComment('')
+                  if (currentComment) {
+                    updateComment(
+                      { text: comment },
+                      answer._id,
+                      currentComment._id
+                    )
+                    if (currentComment.text !== comment) {
+                      setComment('')
+                    }
+                  } else {
+                    addComment(answer._id, { text: comment })
+                    setComment('')
+                  }
                 }}
               >
                 <div className='input-field'>
@@ -189,6 +211,8 @@ Answers.propTypes = {
   getQuestion: PropTypes.func.isRequired,
   setCurrentAnswer: PropTypes.func.isRequired,
   setCurrentComment: PropTypes.func.isRequired,
+  updateAnswer: PropTypes.func.isRequired,
+  updateComment: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
@@ -198,6 +222,8 @@ const mapStateToProps = (state) => ({
 })
 
 export default connect(mapStateToProps, {
+  updateComment,
+  updateAnswer,
   setCurrentComment,
   setCurrentAnswer,
   getQuestion,

@@ -120,7 +120,7 @@ export const updateAnswer = (formData, answerId) => async (dispatch) => {
     const res = await axios.put(`/api/answers/${answerId}`, formData, config)
     dispatch({
       type: UPDATE_ANSWER,
-      payload: res.data,
+      payload: { answerId, updatedAnswer: res.data },
     })
 
     dispatch(setAlert('Answer Edited', 'success'))
@@ -158,6 +158,41 @@ export const addComment = (answerId, formData) => async (dispatch) => {
 
     dispatch(setAlert('Comment Added', 'success'))
   } catch (err) {
+    dispatch({
+      type: ANSWER_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    })
+  }
+}
+
+//Update current Comment
+export const updateComment = (formData, answerId, commentId) => async (
+  dispatch
+) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }
+
+  try {
+    const res = await axios.put(
+      `/api/answers/${answerId}/${commentId}`,
+      formData,
+      config
+    )
+    dispatch({
+      type: UPDATE_COMMENT,
+      payload: { answerId, updatedAnswer: res.data },
+    })
+
+    dispatch(setAlert('Comment Edited', 'success'))
+    dispatch(clearCurrentAnswer())
+  } catch (err) {
+    //custom err message if comment already exists
+    const errMsg = err.response.data.msg
+    dispatch(setAlert(errMsg, 'danger'))
+
     dispatch({
       type: ANSWER_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

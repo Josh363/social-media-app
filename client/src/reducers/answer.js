@@ -33,11 +33,18 @@ export default function (state = initialState, action) {
         loading: false,
       }
     case ADD_ANSWER:
-    case UPDATE_ANSWER:
       return {
         ...state,
         answers: [payload, ...state.answers],
         loading: false,
+      }
+    case UPDATE_ANSWER:
+    case UPDATE_COMMENT:
+      return {
+        ...state,
+        answers: state.answers.map((answer) =>
+          answer._id === payload.answerId ? payload.updatedAnswer : answer
+        ),
       }
     case DELETE_ANSWER:
       return {
